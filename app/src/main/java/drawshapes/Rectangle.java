@@ -32,6 +32,7 @@ public class Rectangle implements IShape
     @Override
     public void scale(double factor)
     {
+        //System.out.println("scaling by factor: "+factor);
         width *= factor;
         height *= factor;
     }
@@ -42,12 +43,14 @@ public class Rectangle implements IShape
         
         if (isSelected())
         {
-            gc.setFill(color.brighter());
+            gc.setFill(color.darker().darker().darker());
+            //System.out.println("brigther red color: "+color.darker());
         }
         else
         {
             gc.setFill(color);
         }
+        // x, y is the center, but we need the top left corner to draw a filled rectangle
         gc.fillRect(x - width/2, y - height/2, width, height);
     }
 

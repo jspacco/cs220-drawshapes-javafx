@@ -60,36 +60,6 @@ public class DrawShapes extends Application
         canvas = new Canvas(width, height);
         root.setCenter(canvas);
 
-        // add a keyboard handler
-        root.setOnKeyPressed(event -> {
-            switch (event.getCode())
-            {
-                case R:
-                    currentShape = Shape.RECTANGLE;
-                    break;
-                case C:
-                    currentShape = Shape.CIRCLE;
-                    break;
-                case T:
-                    currentShape = Shape.TRIANGLE;
-                    break;
-                case S:
-                    currentShape = Shape.SQUARE;
-                    break;
-                case SHIFT:
-                    shiftDown = true;
-                    break;
-            }
-        });
-
-        // add a keyboard release handler
-        root.setOnKeyReleased(event -> {
-            if (event.getCode() == KeyCode.SHIFT)
-            {
-                shiftDown = false;
-            }
-        });
-
         canvas.setOnMouseDragged(event -> {
             shapeScene.unselectAll();
             Point2D currentDrag = new Point2D(event.getX(), event.getY());
@@ -116,7 +86,6 @@ public class DrawShapes extends Application
         canvas.setOnMouseClicked(event -> {
             // only draw a shape if the mouse was not dragged
             if (event.getX() != startDrag.getX() || event.getY() != startDrag.getY()) return;
-            System.out.println("CLICK");
             switch (currentShape)
             {
                 case RECTANGLE:
@@ -145,9 +114,56 @@ public class DrawShapes extends Application
 		String stylesheet = styleURL.toExternalForm();
 		scene.getStylesheets().add(stylesheet);
 
+        setKeyHandlers(scene);
+
         primaryStage.setTitle("DrawShapes");
         primaryStage.setScene(scene);
         primaryStage.show();
+    }
+
+    private void setKeyHandlers(Scene scene)
+    {
+        // add a keyboard handler
+        scene.setOnKeyPressed(event -> {
+            switch (event.getCode())
+            {
+                case R:
+                    System.out.println("R");
+                    currentShape = Shape.RECTANGLE;
+                    break;
+                case C:
+                    currentShape = Shape.CIRCLE;
+                    break;
+                case T:
+                    currentShape = Shape.TRIANGLE;
+                    break;
+                case S:
+                    currentShape = Shape.SQUARE;
+                    break;
+                case EQUALS:
+                    System.out.println("PLUS");
+                    shapeScene.getShapes().stream().filter(IShape::isSelected).forEach(shape -> shape.scale(1.1));
+                    draw();
+                    break;
+                case MINUS:
+                    System.out.println("MINUS");
+                    shapeScene.getShapes().stream().filter(IShape::isSelected).forEach(shape -> shape.scale(0.9));
+                    draw();
+                    break;
+                case SHIFT:
+                    shiftDown = true;
+                    break;
+                
+            }
+        });
+
+        // add a keyboard release handler
+        scene.setOnKeyReleased(event -> {
+            if (event.getCode() == KeyCode.SHIFT)
+            {
+                shiftDown = false;
+            }
+        });
     }
 
     private MenuBar createMenuBar(Stage primaryStage)
@@ -200,8 +216,8 @@ public class DrawShapes extends Application
         addMenuItem(colorMenu, "Blue", () -> {
             color = Color.BLUE;
         });
-        addMenuItem(colorMenu, "Black", () -> {
-            color = Color.BLACK;
+        addMenuItem(colorMenu, "Yellow", () -> {
+            color = Color.YELLOW;
         });
         //TODO: add an option for a custom color that is set with RGB values
 

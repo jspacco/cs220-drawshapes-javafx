@@ -45,6 +45,7 @@ public class ShapeScene
     {
         BoundingBox box = highlight.getBoundingBox();
         shapes.stream().filter(shape -> shape.getBoundingBox().intersects(box)).forEach(shape -> shape.setSelected(true));
+        //System.out.println(shapes.stream().filter(IShape::isSelected).count() + " shapes selected");
     }
 
     public void unselectAll() {
