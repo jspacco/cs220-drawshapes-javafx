@@ -4,9 +4,6 @@ plugins {
     id 'org.openjfx.javafxplugin' version '0.0.13'
 }
 
-group 'knox.drawshapes'
-version '0.0.1'
-
 repositories {
     // Use Maven Central for resolving dependencies.
     mavenCentral()

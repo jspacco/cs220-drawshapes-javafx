@@ -11,6 +11,7 @@ public class Rectangle implements IShape
     private double x;
     private double y;
     private Color color;
+    private boolean selected;
 
     public Rectangle(Color color, double width, double height, double x, double y)
     {
@@ -38,9 +39,16 @@ public class Rectangle implements IShape
     @Override
     public void draw(GraphicsContext gc)
     {
-        gc.setFill(color);
+        
+        if (isSelected())
+        {
+            gc.setFill(color.brighter());
+        }
+        else
+        {
+            gc.setFill(color);
+        }
         gc.fillRect(x - width/2, y - height/2, width, height);
-        //System.out.println("Drawing rectangle at (" + x + ", " + y + ") with width " + width + " and height " + height);
     }
 
     @Override
@@ -58,6 +66,24 @@ public class Rectangle implements IShape
     public boolean contains(Point2D p)
     {
         return p.getX() >= x && p.getX() <= x + width && p.getY() >= y && p.getY() <= y + height;
+    }
+
+    @Override
+    public BoundingBox getBoundingBox()
+    {
+        return new BoundingBox((int)(x - width/2), (int)(y - height/2), (int)(x + width/2), (int)(y + height/2));
+    }
+
+    @Override
+    public boolean isSelected()
+    {
+        return selected;
+    }
+
+    @Override
+    public void setSelected(boolean selected)
+    {
+        this.selected = selected;
     }
 
 }

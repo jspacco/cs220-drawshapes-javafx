@@ -41,6 +41,14 @@ public class ShapeScene
         }
     }
 
-    
+    public void selectShapes(Rectangle highlight)
+    {
+        BoundingBox box = highlight.getBoundingBox();
+        shapes.stream().filter(shape -> shape.getBoundingBox().intersects(box)).forEach(shape -> shape.setSelected(true));
+    }
+
+    public void unselectAll() {
+        shapes.forEach(shape -> shape.setSelected(false));
+    }
 
 }

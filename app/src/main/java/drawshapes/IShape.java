@@ -10,6 +10,9 @@ public interface IShape
     void scale(double factor);
     void draw(GraphicsContext gc);
     boolean contains(Point2D p);
-    public Color getColor();
-    public void setColor(Color color);
+    Color getColor();
+    void setColor(Color color);
+    BoundingBox getBoundingBox();
+    boolean isSelected();
+    void setSelected(boolean selected);
 }

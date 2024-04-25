@@ -4,5 +4,6 @@ public enum Shape
 {
     RECTANGLE,
     SQUARE,
-    CIRCLE
+    CIRCLE,
+    TRIANGLE
 }
